@@ -1,0 +1,929 @@
+//quantidade de oportunidades (diária:25, semanal:25 e mensal:8) pré-estabelecidas por video chamada 
+//tabela_diaria: começa na linha 9 e termina na 33, tabela_semanal: começa  na linha 37 e termina na 61, tabela_mensal: começa  na linha 65 e termina na 72
+   
+function status(){
+  var ss = SpreadsheetApp.getActiveSpreadsheet();//abre a planilha
+  var q = SpreadsheetApp.getActiveSpreadsheet().getNumSheets();
+  var sheet = ss.getSheets()[0];
+  var sheet1 = ss.getSheets()[1];
+  var sheet2 = ss.getSheets()[2];
+  var sheet3 = ss.getSheets()[3];
+  var sheet4 = ss.getSheets()[4]; 
+
+  if (q == 4){//se o mês tiver 4 semanas:
+    //-----------------------------4ª semana---------------------------//
+    //Atribuição para a tabela diária 
+    for (l = 9; l < 20; l++){ 
+      //if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" && sheet.getRange(l,2).getValue() < sheet.getRange(l,4).getValue()){
+        //sheet.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" && sheet.getRange(l,2).getValue() < sheet.getRange(l,3).getValue()){
+        sheet.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" || sheet.getRange(l,18).getValue() === "Aguardando" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,3).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,5).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() == "TRADE ATIVADO" && sheet.getRange(l,18).getValue() === "" || sheet.getRange(l,18).getValue() === "Aguardando" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,5).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,6).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,18).getValue() === "" || sheet.getRange(l,18).getValue() === "Aguardando" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,6).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,7).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,18).getValue() === "" || sheet.getRange(l,18).getValue() === "Aguardando" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,7).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,8).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() <= sheet.getRange(l,4).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet.getRange(l,19).setValue("STOP acionado");}
+
+    }
+    //Atribuição para a tabela semanal 
+    for (l = 37; l < 62; l++){
+    //if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" && sheet.getRange(l,2).getValue() < sheet.getRange(l,4).getValue()){
+        //sheet.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" && sheet.getRange(l,2).getValue() < sheet.getRange(l,3).getValue()){
+        sheet.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" || sheet.getRange(l,18).getValue() === "Aguardando" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,3).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,5).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,5).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,6).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,6).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,7).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,7).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,8).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() <= sheet.getRange(l,4).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela mensal
+    for (l = 65; l < 73; l++){
+      //if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" && sheet.getRange(l,2).getValue() < sheet.getRange(l,4).getValue()){
+        //sheet.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" && sheet.getRange(l,2).getValue() < sheet.getRange(l,3).getValue()){
+        sheet.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" || sheet.getRange(l,18).getValue() === "Aguardando" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,3).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,5).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,5).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,6).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,6).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,7).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,7).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,8).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() <= sheet.getRange(l,4).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet.getRange(l,19).setValue("STOP acionado");}
+    }
+
+    //--------------------------3ª semana--------------------//
+    //Atribuição para a tabela diária 
+    for (l = 9; l < 20; l++){ 
+      //if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,4).getValue()){
+        //sheet1.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet1.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,3).getValue()){
+        sheet1.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" || sheet1.getRange(l,18).getValue() === "Aguardando" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,3).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,5).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");}                  
+                  
+      //Alvo 1 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,5).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,6).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,6).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,7).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,7).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,8).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() <= sheet1.getRange(l,4).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet1.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela semanal 
+    for (l = 37; l < 62; l++){
+      //if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,4).getValue()){
+        //sheet1.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet1.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,3).getValue()){
+        sheet1.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" || sheet1.getRange(l,18).getValue() === "Aguardando" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,3).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,5).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,5).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,6).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,6).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,7).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,7).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,8).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() <= sheet1.getRange(l,4).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet1.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela mensal
+    for (l = 65; l < 73; l++){
+      //if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,4).getValue()){
+        //sheet1.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet1.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,3).getValue()){
+        sheet1.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" || sheet1.getRange(l,18).getValue() === "Aguardando" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,3).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,5).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,5).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,6).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,6).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,7).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,7).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,8).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() <= sheet1.getRange(l,4).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet1.getRange(l,19).setValue("STOP acionado");}
+    }
+    //---------------2ª semana-----------------//
+    //Atribuição para a tabela diária 
+    for (l = 9; l < 20; l++){ 
+      //if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,4).getValue()){
+        //sheet2.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet2.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,3).getValue()){
+        sheet2.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" || sheet2.getRange(l,18).getValue() === "Aguardando" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,3).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,5).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,5).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,6).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,6).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,7).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,7).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,8).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() <= sheet2.getRange(l,4).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet2.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela semanal 
+    for (l = 37; l < 62; l++){
+      //if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,4).getValue()){
+        //sheet2.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet2.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,3).getValue()){
+        sheet2.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" || sheet2.getRange(l,18).getValue() === "Aguardando" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,3).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,5).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");}
+
+      //Alvo 1 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,5).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,6).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,6).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,7).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,7).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,8).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() <= sheet2.getRange(l,4).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet2.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela mensal
+    for (l = 65; l < 73; l++){
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      //if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,4).getValue()){
+        //sheet2.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet2.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,3).getValue()){
+        sheet2.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" || sheet2.getRange(l,18).getValue() === "Aguardando" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,3).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,5).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,5).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,6).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,6).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,7).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,7).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,8).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() <= sheet2.getRange(l,4).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet2.getRange(l,19).setValue("STOP acionado");}
+    }
+    //---------------1ª semana-----------------//
+    //Atribuição para a tabela diária 
+    for (l = 9; l < 20; l++){ 
+      //if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,4).getValue()){
+        //sheet3.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet3.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,3).getValue()){
+        sheet3.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" || sheet3.getRange(l,18).getValue() === "Aguardando" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,3).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,5).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,5).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,6).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,6).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,7).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,7).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,8).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() <= sheet3.getRange(l,4).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet3.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela semanal 
+    for (l = 37; l < 62; l++){
+      //if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,4).getValue()){
+        //sheet3.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet3.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,3).getValue()){
+        sheet3.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" || sheet3.getRange(l,18).getValue() === "Aguardando" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,3).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,5).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");}
+
+      //Alvo 1 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,5).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,6).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,6).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,7).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,7).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,8).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() <= sheet3.getRange(l,4).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet3.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela mensal
+    for (l = 65; l < 73; l++){
+      //if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,4).getValue()){
+        //sheet3.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet3.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,3).getValue()){
+        sheet3.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" || sheet3.getRange(l,18).getValue() === "Aguardando" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,3).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,5).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");}
+                                    
+      //Alvo 1 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,5).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,6).getValue()){
+        
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,6).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,7).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,7).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,8).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() <= sheet3.getRange(l,4).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet3.getRange(l,19).setValue("STOP acionado");}
+    }
+  }
+  if(q == 5){//se o mês tiver 5 semanas
+    //Atribuição para a tabela diária 
+    for (l = 9; l < 20; l++){ 
+      //if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" && sheet.getRange(l,2).getValue() < sheet.getRange(l,4).getValue()){
+        //sheet.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" && sheet.getRange(l,2).getValue() < sheet.getRange(l,3).getValue()){
+        sheet.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" || sheet.getRange(l,18).getValue() === "Aguardando" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,3).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,5).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() == "TRADE ATIVADO" && sheet.getRange(l,18).getValue() === "" || sheet.getRange(l,18).getValue() === "Aguardando" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,5).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,6).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,18).getValue() === "" || sheet.getRange(l,18).getValue() === "Aguardando" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,6).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,7).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,18).getValue() === "" || sheet.getRange(l,18).getValue() === "Aguardando" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,7).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,8).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() <= sheet.getRange(l,4).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela semanal
+    for (l = 37; l < 62; l++){
+    //if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" && sheet.getRange(l,2).getValue() < sheet.getRange(l,4).getValue()){
+        //sheet.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" && sheet.getRange(l,2).getValue() < sheet.getRange(l,3).getValue()){
+        sheet.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" || sheet.getRange(l,18).getValue() === "Aguardando" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,3).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,5).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,5).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,6).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,6).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,7).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,7).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,8).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() <= sheet.getRange(l,4).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela mensal
+    for (l = 65; l < 73; l++){
+      //if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" && sheet.getRange(l,2).getValue() < sheet.getRange(l,4).getValue()){
+        //sheet.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" && sheet.getRange(l,2).getValue() < sheet.getRange(l,3).getValue()){
+        sheet.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "" || sheet.getRange(l,18).getValue() === "Aguardando" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,3).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,5).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,5).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,6).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,6).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,7).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() >= sheet.getRange(l,7).getValue() && sheet.getRange(l,2).getValue() < sheet.getRange(l,8).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet.getRange(l,1).getValue() !== "" && sheet.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet.getRange(l,2).getValue() <= sheet.getRange(l,4).getValue()){
+        sheet.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet.getRange(l,19).setValue("STOP acionado");}
+    }
+
+    //--------------------------penúltima semana--------------------//
+    //Atribuição para a tabela diária 
+    for (l = 9; l < 20; l++){ 
+      //if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,4).getValue()){
+        //sheet1.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet1.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,3).getValue()){
+        sheet1.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" || sheet1.getRange(l,18).getValue() === "Aguardando" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,3).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,5).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");}                  
+                  
+      //Alvo 1 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,5).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,6).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,6).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,7).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,7).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,8).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() <= sheet1.getRange(l,4).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet1.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela semanal 
+    for (l = 37; l < 62; l++){
+      //if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,4).getValue()){
+        //sheet1.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet1.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,3).getValue()){
+        sheet1.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" || sheet1.getRange(l,18).getValue() === "Aguardando" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,3).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,5).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,5).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,6).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,6).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,7).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,7).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,8).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() <= sheet1.getRange(l,4).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet1.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela mensal
+    for (l = 65; l < 73; l++){
+      //if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,4).getValue()){
+        //sheet1.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet1.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,3).getValue()){
+        sheet1.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "" || sheet1.getRange(l,18).getValue() === "Aguardando" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,3).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,5).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,5).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,6).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,6).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,7).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() >= sheet1.getRange(l,7).getValue() && sheet1.getRange(l,2).getValue() < sheet1.getRange(l,8).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet1.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet1.getRange(l,1).getValue() !== "" && sheet1.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet1.getRange(l,2).getValue() <= sheet1.getRange(l,4).getValue()){
+        sheet1.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet1.getRange(l,19).setValue("STOP acionado");}
+    }
+    //---------------antepenúltima semana-----------------//
+    //Atribuição para a tabela diária 
+    for (l = 9; l < 20; l++){ 
+      //if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,4).getValue()){
+        //sheet2.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet2.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,3).getValue()){
+        sheet2.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" || sheet2.getRange(l,18).getValue() === "Aguardando" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,3).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,5).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,5).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,6).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,6).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,7).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,7).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,8).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() <= sheet2.getRange(l,4).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet2.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela semanal 
+    for (l = 37; l < 62; l++){
+      //if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,4).getValue()){
+        //sheet2.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet2.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,3).getValue()){
+        sheet2.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" || sheet2.getRange(l,18).getValue() === "Aguardando" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,3).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,5).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");}
+
+      //Alvo 1 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,5).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,6).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,6).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,7).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,7).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,8).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() <= sheet2.getRange(l,4).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet2.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela mensal
+    for (l = 65; l < 73; l++){
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      //if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,4).getValue()){
+        //sheet2.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet2.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,3).getValue()){
+        sheet2.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "" || sheet2.getRange(l,18).getValue() === "Aguardando" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,3).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,5).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,5).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,6).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,6).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,7).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() >= sheet2.getRange(l,7).getValue() && sheet2.getRange(l,2).getValue() < sheet2.getRange(l,8).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet2.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet2.getRange(l,1).getValue() !== "" && sheet2.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet2.getRange(l,2).getValue() <= sheet2.getRange(l,4).getValue()){
+        sheet2.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet2.getRange(l,19).setValue("STOP acionado");}
+    }
+    //---------------segunda ou primeira semana-----------------//
+    //Atribuição para a tabela diária 
+    for (l = 9; l < 20; l++){ 
+      //if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,4).getValue()){
+        //sheet3.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet3.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,3).getValue()){
+        sheet3.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" || sheet3.getRange(l,18).getValue() === "Aguardando" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,3).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,5).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,5).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,6).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,6).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,7).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,7).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,8).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() <= sheet3.getRange(l,4).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet3.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela semanal 
+    for (l = 37; l < 62; l++){
+      //if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,4).getValue()){
+        //sheet3.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet3.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,3).getValue()){
+        sheet3.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" || sheet3.getRange(l,18).getValue() === "Aguardando" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,3).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,5).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");}
+
+      //Alvo 1 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,5).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,6).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,6).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,7).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,7).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,8).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() <= sheet3.getRange(l,4).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet3.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela mensal
+    for (l = 65; l < 73; l++){
+      //if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,4).getValue()){
+        //sheet3.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet3.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,3).getValue()){
+        sheet3.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "" || sheet3.getRange(l,18).getValue() === "Aguardando" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,3).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,5).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");}
+                                    
+      //Alvo 1 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,5).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,6).getValue()){
+        
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,6).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,7).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() >= sheet3.getRange(l,7).getValue() && sheet3.getRange(l,2).getValue() < sheet3.getRange(l,8).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO");
+        sheet3.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet3.getRange(l,1).getValue() !== "" && sheet3.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet3.getRange(l,2).getValue() <= sheet3.getRange(l,4).getValue()){
+        sheet3.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet3.getRange(l,19).setValue("STOP acionado");}
+    }
+    //---------------primeira semana-----------------//
+    //Atribuição para a tabela diária 
+    for (l = 9; l < 20; l++){ 
+      //if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "" && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,4).getValue()){
+        //sheet4.getRange(l,18).setValue("GAP: TRADE ABORTADO");
+        //sheet4.getRange(l,19).setValue("DESCONFIGURADO DO SISTEMA");}  
+
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "" && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,3).getValue()){
+        sheet4.getRange(l,18).setValue("Aguardando");}
+
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "" || sheet4.getRange(l,18).getValue() === "Aguardando" && sheet4.getRange(l,2).getValue() >= sheet4.getRange(l,3).getValue() && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,5).getValue()){
+        sheet4.getRange(l,18).setValue("TRADE ATIVADO");}
+                          
+      //Alvo 1 atingido
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet4.getRange(l,2).getValue() >= sheet4.getRange(l,5).getValue() && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,6).getValue()){
+        sheet4.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet4.getRange(l,2).getValue() >= sheet4.getRange(l,6).getValue() && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,7).getValue()){
+        sheet4.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet4.getRange(l,2).getValue() >= sheet4.getRange(l,7).getValue() && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,8).getValue()){
+        sheet4.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet4.getRange(l,2).getValue() <= sheet4.getRange(l,4).getValue()){
+        sheet4.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet4.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela semanal 
+    for (l = 37; l < 62; l++){
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "" && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,3).getValue()){
+        sheet4.getRange(l,18).setValue("Aguardando");}
+      
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "" && sheet4.getRange(l,2).getValue() >= sheet4.getRange(l,3).getValue() && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,5).getValue()){
+      sheet4.getRange(l,18).setValue("TRADE ATIVADO");}
+
+      //Alvo 1 atingido
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet4.getRange(l,2).getValue() >= sheet4.getRange(l,5).getValue() && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,6).getValue()){
+        sheet4.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet4.getRange(l,2).getValue() >= sheet4.getRange(l,6).getValue() && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,7).getValue()){
+        sheet4.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet4.getRange(l,2).getValue() >= sheet4.getRange(l,7).getValue() && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,8).getValue()){
+        sheet4.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet4.getRange(l,2).getValue() <= sheet4.getRange(l,4).getValue()){
+        sheet4.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet4.getRange(l,19).setValue("STOP acionado");}
+    }
+    //Atribuição para a tabela mensal
+    for (l = 65; l < 73; l++){
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "" && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,3).getValue()){
+        sheet4.getRange(l,18).setValue("Aguardando");}
+      //se coluna COT.ATUAL >= coluna ENTRADA e status vazio
+      
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "" && sheet4.getRange(l,2).getValue() >= sheet4.getRange(l,3).getValue() && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,5).getValue()){
+      sheet4.getRange(l,18).setValue("TRADE ATIVADO");}
+                  
+      //Alvo 1 atingido
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet4.getRange(l,2).getValue() >= sheet4.getRange(l,5).getValue() && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,6).getValue()){
+        sheet4.getRange(l,19).setValue("ALVO 1 ATINGIDO");}
+            
+      //Alvo 2 atingido
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet4.getRange(l,2).getValue() >= sheet4.getRange(l,6).getValue() && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,7).getValue()){
+        sheet4.getRange(l,19).setValue("ALVOS 1 e 2 ATINGIDOS");}
+
+      //Alvo 3 atingido
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet4.getRange(l,2).getValue() >= sheet4.getRange(l,7).getValue() && sheet4.getRange(l,2).getValue() < sheet4.getRange(l,8).getValue()){
+        sheet4.getRange(l,19).setValue("ALVO 1, 2 e 3 ATINGIDOS");}
+        
+      //Stop
+      if (sheet4.getRange(l,1).getValue() !== "" && sheet4.getRange(l,18).getValue() === "TRADE ATIVADO" && sheet4.getRange(l,2).getValue() <= sheet4.getRange(l,4).getValue()){
+        sheet4.getRange(l,18).setValue("TRADE ATIVADO - STOP");
+        sheet4.getRange(l,19).setValue("STOP acionado");}
+    }            
+  }  
+}
+//------------------------------------Automatizando----------------------------//
+
+//Executa o script automaticamente ao atualizar a página
+function onOpen(){
+  status();
+}
+
+//-------------------------------------------Instruções--------------------------------------//
+//Ao virar o mês e criar um arquivo novo, será necessário 'instalar' o script manualmente apenas na primeira vez que for rodar o código.
+//Passo-a-passo:
+//1º: Mantenha sempre uma cópia deste script salvo em arquivo .txt na nuvem, no computador ou outro método efetivo de armazenamento de dados;
+//2º: Abra a cópia do arquivo do script em formato .txt e copie o conteúdo;
+//3º: Certifique-se que a nova planilha está em formato de planilha do Google Sheets para ter acesso ao ícone 'Extensões', caso este ícone não esteja visível, significa que sua planilha está em formato .xlsx. Para convertê-la em formato Google Sheets basta abrir o arquivo pelo Google, clicar em 'Arquivo'e depois em 'salvar uma cópia como planilha do Google';
+//4º: Feito isto, basta clicar em 'Extensões', depois em 'Apps scripts', apagar tudo o que está escrito na aba que irá abrir, colar o código do script e clicar em salvar e depois executar;
+//5º: O Google irá solicitar autorização para executar o script (basta aceitar e fornecer as informações necessárias)
+
+//-----------------------------EXONERAÇÃO DE RESPONSABILIDADE----------------------------//
+//Os dados e as informações geradas por este script são meramente de caráter informativo e não constituem orientações sobre investimentos, nem oferta, recomendação ou solicitação para comprar, vender ou reter títulos ou produtos financeiros, questões jurídicas, financeiras ou outros assuntos. Consulte seu agente ou analista financeiro antes de executar qualquer negociação. É de sua responsabilidade considerar se esses produtos ou operações são adequados para você. 
+//Os dados são fornecidos por bolsas de valores e outros provedores de conteúdo e podem ter atraso conforme especificado pelas próprias bolsas ou provedores de dados. ESTE SCRIPT, BEM COMO A DESENVOLVEDORA DESTE não verificam os dados e exoneram-se de qualquer obrigação de fazer isso, bem como exoneram-se da responsabilidade em relação à exatidão, à adequação ou à integridade dos dados, e não serão responsáveis por erros, omissões ou outras falhas, atrasos ou interrupções na transmissão desses dados ou por qualquer medida tomada em razão disso.
+//A DESENVOLVEDORA DESTE SCRIPT não é consultora financeira ou de investimentos, nem corretora de valores e o propósito DESTE SCRIPT é atualizar, de maneira meramente informativa, os valores das colunas STATUS e o RESULTADO das planilhas desenvolvidas pelas empresa "X"(foi necessário ocultar os dados do contratante), utilizando como parâmentros as colunas 'COT. ATUAL', 'ENTRADA', 'STOP',	'ALVO 1',	'ALVO 2' e	'ALVO 3'. Não configurando, portanto, sugestão de operação financeira. A DESENVOLVEDORA DESTE SCRIPT não será responsabilizada por quaisquer danos decorrentes de operações ou investimentos em produtos financeiros referidos aqui.
+//Este SCRIPT não realiza backtest.
